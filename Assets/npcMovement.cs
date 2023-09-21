@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class npcMovement : MonoBehaviour
 
     public float moveSpeed = 1f;
 
+    public Boolean characterInRadius = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,13 +28,16 @@ public class npcMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = (playerObject.transform.position); //vector for player
-        npcVector = (npc.transform.position); //vector for npc
         vectorBetween = (player - npcVector).normalized; //target - player to find the vector between two spots and normalize it
-
-        npc.transform.position = Vector2.MoveTowards(npc.transform.position, playerObject.transform.position, moveSpeed * Time.deltaTime); //move the npc towards the player
-
-        RotateTowardsPlayer(); //rotate the object 
+        characterInRadius = checkInRadius();
+        if (characterInRadius)
+        {
+            MoveTowardsPlayer(); //move towards player
+            RotateTowardsPlayer(); //rotate the object 
+        } else
+        {
+            Wander();
+        }
     }
 
     void RotateTowardsPlayer()
@@ -45,5 +51,35 @@ public class npcMovement : MonoBehaviour
         float signedAngle = Vector2.SignedAngle(up, vectorBetween); //angle between forward and the player
 
         transform.Rotate(new Vector3(0, 0, signedAngle)); //adds the roation but has to be done in a Vector3 to add the rotation angle
+    }
+
+    void MoveTowardsPlayer()
+    {
+        player = (playerObject.transform.position); //vector for player
+        npcVector = (npc.transform.position); //vector for npc
+
+
+        npc.transform.position = Vector2.MoveTowards(npc.transform.position, playerObject.transform.position, moveSpeed * Time.deltaTime); //move the npc towards the player
+    }
+
+    void Wander()
+    {
+
+
+    }
+
+    Boolean checkInRadius()
+    {
+
+        float radius = 2f;
+
+        if (Vector3.Distance(transform.position, playerObject.transform.position) < radius)
+        {
+            Debug.Log("In radius!");
+            return true;
+        }
+       
+        return false;
+
     }
 }
