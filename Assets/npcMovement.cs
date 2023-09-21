@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Windows;
+using Random = UnityEngine.Random; //use unity random
 
 public class npcMovement : MonoBehaviour
 {
@@ -14,30 +16,46 @@ public class npcMovement : MonoBehaviour
     public Vector2 npcVector;
     public Vector2 vectorBetween;
 
+    public Vector2 originPos; //position the NPC starts at
+
     public float moveSpeed = 1f;
+    public float npcAttackRadius = 2f;
+    public float wanderRadius = 1f;
+
+    public Vector2 newPos;
+
 
     public Boolean characterInRadius = false;
+    public Boolean npcMoving = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        originPos = transform.position;
+        newPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+     
         vectorBetween = (player - npcVector).normalized; //target - player to find the vector between two spots and normalize it
-        characterInRadius = checkInRadius();
-        if (characterInRadius)
+        characterInRadius = CheckInRadius(npcAttackRadius, transform.position, playerObject.transform.position); //check to see if character is in radius of the NPC
+        if (!npcMoving)
         {
-            MoveTowardsPlayer(); //move towards player
-            RotateTowardsPlayer(); //rotate the object 
-        } else
-        {
-            Wander();
+            newPos = getNewPos();
+            npcMoving= true;
         }
+        if (characterInRadius) //if the character is within the NPC's attack radius 
+        {
+            MoveTowardsTarget(transform.position, playerObject.transform.position); //move towards player
+            RotateTowardsPlayer(); //rotate the object 
+        } else //if player is not within attack radius
+        {
+            MoveTowardsTarget(transform.position, newPos);
+        }
+        
     }
 
     void RotateTowardsPlayer()
@@ -53,27 +71,39 @@ public class npcMovement : MonoBehaviour
         transform.Rotate(new Vector3(0, 0, signedAngle)); //adds the roation but has to be done in a Vector3 to add the rotation angle
     }
 
-    void MoveTowardsPlayer()
+    void MoveTowardsTarget(Vector3 start, Vector3 end)
     {
-        player = (playerObject.transform.position); //vector for player
-        npcVector = (npc.transform.position); //vector for npc
-
-
-        npc.transform.position = Vector2.MoveTowards(npc.transform.position, playerObject.transform.position, moveSpeed * Time.deltaTime); //move the npc towards the player
+        transform.position = Vector3.MoveTowards(start, end, moveSpeed * Time.deltaTime); //move the npc to target
+        if(transform.position == end)
+        {
+            npcMoving = false;
+        }
     }
 
-    void Wander()
+
+    Vector2 getNewPos()
     {
+        float minX = originPos.x + -wanderRadius;
+        float maxX = originPos.x + wanderRadius;
+        float minY = originPos.y + -wanderRadius;
+        float maxY = originPos.y + wanderRadius;
+        Vector2 newPos = transform.position;
+ 
+        
+            float xPos = Random.Range(minX, maxX);
+            float yPos = Random.Range(minY, maxY);
 
+            newPos = new Vector2(xPos, yPos);
 
+            Debug.Log(xPos + " " + yPos);
+        
+
+        return newPos;
     }
 
-    Boolean checkInRadius()
+    Boolean CheckInRadius(float radius , Vector3 posA, Vector3 posB)
     {
-
-        float radius = 2f;
-
-        if (Vector3.Distance(transform.position, playerObject.transform.position) < radius)
+        if (Vector3.Distance(posA, posB) < radius)
         {
             Debug.Log("In radius!");
             return true;
