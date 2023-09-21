@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     void moveCharacter()
     {
-        transform.Translate(normalizedInput * speed * Time.deltaTime);
+        transform.Translate(normalizedInput * speed * Time.deltaTime); 
     }
 
 
