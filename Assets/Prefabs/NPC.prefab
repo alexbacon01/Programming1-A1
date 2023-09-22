@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5984367143380007732}
   - component: {fileID: 8326814116902730256}
   - component: {fileID: 6555583704619543125}
-  m_Layer: 0
+  - component: {fileID: 4643053894307917466}
+  m_Layer: 7
   m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +158,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941513317008120342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf53b8581fa0ab74fa6b2448419fcf08, type: 3}
   m_Name: 
@@ -175,6 +176,26 @@ MonoBehaviour:
   characterInRadius: 0
   npcMoving: 0
   foundPlayer: 0
+--- !u!114 &4643053894307917466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941513317008120342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e769429c9e44c014b8ccea766f77c2da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 8326814116902730256}
+  forceAmount: 5
+  projectile: {fileID: 600120463410095715, guid: 3b3430652befef145adc601132935fb9, type: 3}
+  target: {fileID: 2347923230050577680, guid: a6f40e54415123b41b7d0b1bfc05b7c7, type: 3}
+  currentTime: 2
+  isTimerRunning: 0
+  coolDown: 2
+  abilityRadius: 4
 --- !u!1 &8966236378353138844
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583390134093637976}
   - component: {fileID: 2062761826970820967}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chase Radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}

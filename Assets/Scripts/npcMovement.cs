@@ -128,7 +128,7 @@ public class npcMovement : MonoBehaviour
  
         if (Vector3.Distance(posA, posB) <= radius)
         {
-            Debug.Log("In radius!");
+            Debug.Log("In chase radius!");
             
             return true;
         }
