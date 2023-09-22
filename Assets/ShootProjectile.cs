@@ -9,23 +9,19 @@ public class ShootProjectile : MonoBehaviour
     public Rigidbody2D rb;
     public float forceAmount = 1f;
     public GameObject target;
-    public Boolean targetHit = false;
-    public SpriteRenderer spriteRenderer;
+
+    public SpriteRenderer sr;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = target.GetComponent<SpriteRenderer>();
+        sr = target.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (targetHit)
-        {
-            Debug.Log("hit");
-            spriteRenderer.color = Color.red;
-        }
+        sr.color = Color.blue;
 
     }
     private void FixedUpdate()
@@ -43,9 +39,6 @@ public class ShootProjectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        targetHit = true;
-            
-        
-        
+        sr.color = Color.red;
     }
 }
