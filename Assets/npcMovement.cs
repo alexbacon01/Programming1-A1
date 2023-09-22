@@ -40,9 +40,10 @@ public class npcMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Boolean atOrigin = true;
         player = playerObject.transform.position;
         npcVector = npc.transform.position;
-     
+        /*
         vectorBetween = (player - npcVector).normalized ; //target - player to find the vector between two spots and normalize it
         characterInRadius = CheckInRadius(npcAttackRadius, transform.position, playerObject.transform.position); //check to see if character is in radius of the NPC
 
@@ -59,10 +60,27 @@ public class npcMovement : MonoBehaviour
         } else //if player is not within attack radius
         {
             MoveTowardsTarget(transform.position, originPos);
+       
+                MoveTowardsTarget(transform.position, newPos);
+           
+        }
+       */
+        vectorBetween = (player - npcVector).normalized; //target - player to find the vector between two spots and normalize it
+        characterInRadius = CheckInRadius(npcAttackRadius, transform.position, playerObject.transform.position); //check to see if character is in radius of the NPC
+        if (!npcMoving)
+        {
+            newPos = getNewPos();
+            npcMoving = true;
+        }
+        if (characterInRadius) //if the character is within the NPC's attack radius 
+        {
+            MoveTowardsTarget(transform.position, playerObject.transform.position); //move towards player
+            RotateTowardsPlayer(); //rotate the object 
+        }
+        else //if player is not within attack radius
+        {
             MoveTowardsTarget(transform.position, newPos);
         }
-       
-
 
 
     }
