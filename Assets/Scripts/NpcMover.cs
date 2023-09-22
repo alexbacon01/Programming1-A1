@@ -14,7 +14,7 @@ public class NpcMover : MonoBehaviour
     public Vector2 originPos; //position the NPC starts at
 
     public float moveSpeed = 1f; //speed the NPC moves at
-    public float npcChaseRadius = 3f; //the radius at which the NPC chases a player
+    public float npcChaseRadius = 2f; //the radius at which the NPC chases a player
     public float wanderRadius = 2f; //the radius the NPC wanders around
 
     public Vector2 newPos; //the new positiom for the NPC to move to
@@ -114,4 +114,7 @@ public class NpcMover : MonoBehaviour
 
         return false; //otherwise return false
     }
+
+    //function that returns a vector2 of the origin position, takes in a parameter for antoher vectro2
+
 }
