@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1911340242721144254}
   - component: {fileID: 5984367143380007732}
   - component: {fileID: 8326814116902730256}
-  - component: {fileID: 6555583704619543125}
   - component: {fileID: 4643053894307917466}
+  - component: {fileID: -928834138723027890}
   m_Layer: 7
   m_Name: NPC
   m_TagString: Untagged
@@ -151,31 +151,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6555583704619543125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1941513317008120342}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf53b8581fa0ab74fa6b2448419fcf08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 2347923230050577680, guid: a6f40e54415123b41b7d0b1bfc05b7c7, type: 3}
-  npc: {fileID: 1941513317008120342}
-  player: {x: 0, y: 0}
-  npcVector: {x: 0, y: 0}
-  vectorBetween: {x: 0, y: 0}
-  originPos: {x: 0, y: 0}
-  moveSpeed: 1
-  npcAttackRadius: 1
-  wanderRadius: 2
-  newPos: {x: 0, y: 0}
-  characterInRadius: 0
-  npcMoving: 0
-  foundPlayer: 0
 --- !u!114 &4643053894307917466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +171,33 @@ MonoBehaviour:
   isTimerRunning: 0
   coolDown: 2
   abilityRadius: 4
+  rotation: {x: 0, y: 0, z: 0}
+  destroyTime: 0.8
+--- !u!114 &-928834138723027890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941513317008120342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0176a4b0567a0468d3ba341e00f95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 2347923230050577680, guid: a6f40e54415123b41b7d0b1bfc05b7c7, type: 3}
+  npc: {fileID: 1941513317008120342}
+  player: {x: 0, y: 0}
+  npcVector: {x: 0, y: 0}
+  vectorBetween: {x: 0, y: 0}
+  originPos: {x: 0, y: 0}
+  moveSpeed: 1
+  npcAttackRadius: 3
+  wanderRadius: 2
+  newPos: {x: 0, y: 0}
+  characterInRadius: 0
+  npcMoving: 0
+  foundPlayer: 0
 --- !u!1 &8966236378353138844
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,36 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    public Vector2 input; //Vector to hold input
     public float speed = 5f; //the force amount on movement
-    public Vector2 normalizedInput; //variable to hold normalized input
+
+    // Start is called before the first frame update
     void Start()
     {
     }
-
     // Update is called once per frame
     void Update()
     {
-        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //get the input from the keyboard
-        normalizedInput = input.normalized; //normalize the input
+        Vector2 normalizedInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized; //get the input from the keyboard and normalize the input
+        MoveCharacter(normalizedInput);
     }
 
-    void FixedUpdate()
+    //VERY simple function to move character
+    void MoveCharacter(Vector2 input)
     {
-        moveCharacter();
+        transform.Translate(input * speed * Time.deltaTime); //move the character in direction of input byt Time.deltaTime * speed
     }
-
-
-    void moveCharacter()
-    {
-        transform.Translate(normalizedInput * speed * Time.deltaTime); 
-    }
-
-
-
 }
