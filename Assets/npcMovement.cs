@@ -34,14 +34,18 @@ public class npcMovement : MonoBehaviour
     {
         originPos = transform.position;
         newPos = transform.position;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        player = playerObject.transform.position;
+        npcVector = npc.transform.position;
      
-        vectorBetween = (player - npcVector).normalized; //target - player to find the vector between two spots and normalize it
+        vectorBetween = (player - npcVector).normalized ; //target - player to find the vector between two spots and normalize it
         characterInRadius = CheckInRadius(npcAttackRadius, transform.position, playerObject.transform.position); //check to see if character is in radius of the NPC
+
         if (!npcMoving)
         {
             newPos = getNewPos();
@@ -51,24 +55,27 @@ public class npcMovement : MonoBehaviour
         {
             MoveTowardsTarget(transform.position, playerObject.transform.position); //move towards player
             RotateTowardsPlayer(); //rotate the object 
+
         } else //if player is not within attack radius
         {
+            MoveTowardsTarget(transform.position, originPos);
             MoveTowardsTarget(transform.position, newPos);
         }
-        
-    }
+       
 
+
+
+    }
     void RotateTowardsPlayer()
     {
+        
         Vector2 up = transform.up; //short hand for (0,1) direction
-
         Debug.DrawLine(transform.position, transform.position + (Vector3)up * 5f);
-
         Debug.DrawRay(transform.position, (Vector3)up * 5f);
-
         float signedAngle = Vector2.SignedAngle(up, vectorBetween); //angle between forward and the player
-
         transform.Rotate(new Vector3(0, 0, signedAngle)); //adds the roation but has to be done in a Vector3 to add the rotation angle
+
+        Debug.Log("rotating!");
     }
 
     void MoveTowardsTarget(Vector3 start, Vector3 end)
