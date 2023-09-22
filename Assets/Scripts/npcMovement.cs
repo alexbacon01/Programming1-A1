@@ -19,8 +19,8 @@ public class npcMovement : MonoBehaviour
     public Vector2 originPos; //position the NPC starts at
 
     public float moveSpeed = 1f;
-    public float npcAttackRadius = 2f;
-    public float wanderRadius = 1f;
+    public float npcAttackRadius = 3f;
+    public float wanderRadius = 2f;
 
     public Vector2 newPos;
 
@@ -70,7 +70,7 @@ public class npcMovement : MonoBehaviour
         else//if player is not within attack radius
         {
 
-            MoveTowardsTarget(transform.position, newPos);
+          MoveTowardsTarget(transform.position, newPos);
         }
 
         if(npcVector == originPos)
@@ -117,7 +117,7 @@ public class npcMovement : MonoBehaviour
 
             newPos = new Vector2(xPos, yPos);
 
-         //   Debug.Log(xPos + " " + yPos);
+            Debug.Log(maxX + " " + minX);
         
 
         return newPos;
@@ -125,9 +125,11 @@ public class npcMovement : MonoBehaviour
 
     Boolean CheckInRadius(float radius , Vector3 posA, Vector3 posB)
     {
-        if (Vector3.Distance(posA, posB) < radius)
+ 
+        if (Vector3.Distance(posA, posB) <= radius)
         {
             Debug.Log("In radius!");
+            
             return true;
         }
        
