@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf53b8581fa0ab74fa6b2448419fcf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
+  playerObject: {fileID: 2347923230050577680, guid: a6f40e54415123b41b7d0b1bfc05b7c7, type: 3}
   npc: {fileID: 1941513317008120342}
   player: {x: 0, y: 0}
   npcVector: {x: 0, y: 0}
