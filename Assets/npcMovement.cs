@@ -27,6 +27,7 @@ public class npcMovement : MonoBehaviour
 
     public Boolean characterInRadius = false;
     public Boolean npcMoving = false;
+    public Boolean foundPlayer = false;
 
 
     // Start is called before the first frame update
@@ -40,49 +41,44 @@ public class npcMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Boolean atOrigin = true;
+
         player = playerObject.transform.position;
         npcVector = npc.transform.position;
-        /*
-        vectorBetween = (player - npcVector).normalized ; //target - player to find the vector between two spots and normalize it
-        characterInRadius = CheckInRadius(npcAttackRadius, transform.position, playerObject.transform.position); //check to see if character is in radius of the NPC
 
-        if (!npcMoving)
-        {
-            newPos = getNewPos();
-            npcMoving= true;
-        }
-        if (characterInRadius) //if the character is within the NPC's attack radius 
-        {
-            MoveTowardsTarget(transform.position, playerObject.transform.position); //move towards player
-            RotateTowardsPlayer(); //rotate the object 
-
-        } else //if player is not within attack radius
-        {
-            MoveTowardsTarget(transform.position, originPos);
-       
-                MoveTowardsTarget(transform.position, newPos);
-           
-        }
-       */
         vectorBetween = (player - npcVector).normalized; //target - player to find the vector between two spots and normalize it
         characterInRadius = CheckInRadius(npcAttackRadius, transform.position, playerObject.transform.position); //check to see if character is in radius of the NPC
+ 
         if (!npcMoving)
         {
             newPos = getNewPos();
             npcMoving = true;
-        }
-        if (characterInRadius) //if the character is within the NPC's attack radius 
+        } else if (characterInRadius) //if the character is within the NPC's attack radius 
         {
+            
             MoveTowardsTarget(transform.position, playerObject.transform.position); //move towards player
             RotateTowardsPlayer(); //rotate the object 
-        }
-        else //if player is not within attack radius
+            foundPlayer = true;
+        } else if(!characterInRadius && foundPlayer)
         {
+            MoveTowardsTarget(transform.position, originPos);
+            Debug.Log("character lsot");
+            if (npcVector == originPos)
+            {
+                foundPlayer = false;
+            }
+        }
+        else//if player is not within attack radius
+        {
+
             MoveTowardsTarget(transform.position, newPos);
         }
 
+        if(npcVector == originPos)
+        {
+            Debug.Log("at origin");
+        }
 
+        Debug.Log(characterInRadius);
     }
     void RotateTowardsPlayer()
     {
@@ -101,6 +97,7 @@ public class npcMovement : MonoBehaviour
         transform.position = Vector3.MoveTowards(start, end, moveSpeed * Time.deltaTime); //move the npc to target
         if(transform.position == end)
         {
+            Debug.Log("AT END");
             npcMoving = false;
         }
     }
@@ -120,7 +117,7 @@ public class npcMovement : MonoBehaviour
 
             newPos = new Vector2(xPos, yPos);
 
-            Debug.Log(xPos + " " + yPos);
+         //   Debug.Log(xPos + " " + yPos);
         
 
         return newPos;
